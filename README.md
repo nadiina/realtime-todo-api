@@ -1,4 +1,4 @@
-# Real-time To-Do List API (Lab 02)
+# Real-time To-Do List API
 
 **Студентка:** Надія Щербина 
 
