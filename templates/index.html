@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do Dashboard</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; background: #fff; }
+        .menu { width: 300px; }
+        h1 { font-size: 22px; font-weight: 600; margin-bottom: 24px; color: #1d1d1f; }
+        .section-label { font-size: 12px; text-transform: uppercase; color: #86868b; margin: 16px 0 8px 4px; font-weight: 600; }
+        .links { display: flex; flex-direction: column; gap: 8px; }
+        .btn { text-decoration: none; padding: 14px; border-radius: 10px; background: #f5f5f7; color: #1d1d1f; font-size: 15px; font-weight: 500; transition: all 0.2s ease; }
+        .btn:hover { background: #e8e8ed; transform: scale(1.02); }
+        .btn.blue { background: #0071e3; color: #fff; }
+        .btn.blue:hover { background: #0077ed; }
+        .btn.green { background: #28cd41; color: #fff; } /* Додав зелений колір для сокетів */
+        .btn.green:hover { background: #24b83a; }
+        .footer { margin-top: 32px; font-size: 12px; color: #86868b; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <h1>✅ To-Do Manager</h1>
+
+        <div class="links">
+            <div class="section-label">Tasks</div>
+            <a href="/api/tasks/" class="btn blue">Task API (JSON)</a>
+            <a href="/api/" class="btn">My To-Do List (HTML)</a>
+            <a href="/add/" class="btn">Add New Task</a>
+
+            <div class="section-label">Documentation</div>
+            <a href="/api/docs/swagger/" class="btn">Swagger UI</a>
+            <a href="/api/docs/redoc/" class="btn">ReDoc Interface</a>
+
+            <div class="section-label">Real-time</div>
+            <a href="/monitor/" class="btn green">Live Dashboard</a>
+
+            <div class="section-label">System</div>
+            <a href="/admin/" class="btn">Admin Panel</a>
+        </div>
+
+        <div class="footer">
+            2026 &bull; by Nadiia
+        </div>
+    </div>
+</body>
+</html>

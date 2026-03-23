@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f5f7; font-family: -apple-system, sans-serif; }
+        .log-box { height: 400px; overflow-y: auto; background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #e1e4e8; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .log-entry { font-family: 'Courier New', monospace; border-bottom: 1px solid #f0f0f0; padding: 8px 0; font-size: 13px; }
+        .status-dot { height: 10px; width: 10px; background-color: #28a745; border-radius: 50%; display: inline-block; margin-right: 8px; }
+        .nav-back { text-decoration: none; color: #0071e3; font-weight: 500; margin-bottom: 20px; display: inline-block; }
+        .nav-back:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <a href="/" class="nav-back">&larr; Back to Main Menu</a>
+
+    <h2 class="mb-4">⚡ Real-Time Admin Dashboard</h2>
+
+    <div class="alert alert-warning shadow-sm" id="connection-status">
+        ⏳ Connecting to WebSocket server...
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-dark text-white border-0">
+                    <h5 class="mb-0">API Activity (Tasks)</h5>
+                </div>
+                <div class="card-body log-box" id="task-logs">
+                    <p class="text-muted" id="waiting-msg">Waiting for API actions (Create/Update/Delete)...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white border-0">
+                    <h5 class="mb-0">Users Online</h5>
+                </div>
+                <ul class="list-group list-group-flush" id="online-users-list">
+                    {% for ou in online_users %}
+                        <li class="list-group-item" id="user-{{ ou.user.username }}">
+                            <span class="status-dot"></span> <strong>{{ ou.user.username }}</strong>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item text-muted" id="no-users-msg">No users currently online</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const wsProtocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+    const wsUrl = wsProtocol + window.location.host + '/ws/tasks/';
+    const socket = new WebSocket(wsUrl);
+
+    const statusDiv = document.getElementById('connection-status');
+    const taskLogs = document.getElementById('task-logs');
+    const usersList = document.getElementById('online-users-list');
+
+    socket.onopen = function() {
+        statusDiv.className = "alert alert-success shadow-sm";
+        statusDiv.innerHTML = "✅ <strong>CONNECTED:</strong> Listening for real-time events.";
+        console.log("WebSocket connection established.");
+    };
+
+    socket.onmessage = function(event) {
+        const data = JSON.parse(event.data);
+        const now = new Date().toLocaleTimeString();
+
+        if (data.type === 'task') {
+            const waitingMsg = document.getElementById('waiting-msg');
+            if (waitingMsg) waitingMsg.remove();
+
+            let color = data.action === 'created' ? '#28a745' : (data.action === 'deleted' ? '#dc3545' : '#007bff');
+            let logHtml = `<div class="log-entry">
+                <strong style="color: ${color}">[${now}] ACTION: ${data.action.toUpperCase()}</strong><br>
+                <pre class="mt-2 mb-0" style="background: #f8f9fa; padding: 10px; border-radius: 4px;">${JSON.stringify(data.task, null, 2)}</pre>
+            </div>`;
+            taskLogs.insertAdjacentHTML('afterbegin', logHtml);
+        }
+
+        else if (data.type === 'user_status') {
+            const noUsersMsg = document.getElementById('no-users-msg');
+            if (noUsersMsg) noUsersMsg.remove();
+
+            const elementId = 'user-' + data.username;
+
+            if (data.action === 'joined') {
+                if (!document.getElementById(elementId)) {
+                    usersList.insertAdjacentHTML('beforeend', `
+                        <li class="list-group-item bg-light" id="${elementId}">
+                            <span class="status-dot"></span> <strong>${data.username}</strong>
+                            <span class="badge bg-success float-end">Just joined</span>
+                        </li>
+                    `);
+                    setTimeout(() => {
+                        let el = document.getElementById(elementId);
+                        if(el) el.innerHTML = `<span class="status-dot"></span> <strong>${data.username}</strong>`;
+                    }, 3000);
+                }
+            } else if (data.action === 'left') {
+                let userEl = document.getElementById(elementId);
+                if (userEl) userEl.remove();
+            }
+        }
+    };
+
+    socket.onclose = function() {
+        statusDiv.className = "alert alert-danger shadow-sm";
+        statusDiv.innerHTML = "❌ <strong>DISCONNECTED:</strong> Lost connection to the server.";
+        console.warn("WebSocket disconnected.");
+    };
+</script>
+</body>
+</html>
