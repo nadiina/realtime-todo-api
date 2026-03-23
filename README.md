@@ -5,9 +5,7 @@
 **Група:** КВ-51мн  
 
 **Лабораторна робота: №2:** Організація спільної роботи користувачів Web-додатка  
-## Посилання на звіт 
-[https://docs.google.com/document/d/16yPPVKSbs7w5lMctBZtDBXpKvrG-EGOqfcSWl_vC1DU/edit?usp=sharing
-](https://docs.google.com/document/d/1vVYE2JYzs-A2lpHH9Tr6KwdCgSVvTFX2I6lxFhFcy-o/edit?usp=sharing)
+## Посилання на звіт [document](https://docs.google.com/document/d/1vVYE2JYzs-A2lpHH9Tr6KwdCgSVvTFX2I6lxFhFcy-o/edit?usp=sharing)
 ---
 
 ## Опис завдання
