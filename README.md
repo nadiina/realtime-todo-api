@@ -1,22 +1,24 @@
 # Real-time To-Do List API (Lab 02)
 
-**Student:** Nadiia Щербина 
-**Group:** КВ-51мн  
-**Project:** Real-time Task Management System  
-
+**Студентка:** Надія Щербина 
+**Група:** КВ-51мн  
+**Лабораторна робота: №2:** Організація спільної роботи користувачів Web-додатка  
+## Посилання на звіт 
+[https://docs.google.com/document/d/16yPPVKSbs7w5lMctBZtDBXpKvrG-EGOqfcSWl_vC1DU/edit?usp=sharing
+](https://docs.google.com/document/d/1vVYE2JYzs-A2lpHH9Tr6KwdCgSVvTFX2I6lxFhFcy-o/edit?usp=sharing)
 ---
 
-## Project Overview
-This project is an evolution of a standard To-Do List API. It integrates **WebSockets** via **Django Channels** to provide instant data synchronization across all connected clients. When a task is created, updated, or deleted via the REST API, all active users see the changes immediately without refreshing the page.
+## Опис завдання
+Цей проєкт є вдосконаленою версією стандартного API списку справ. Він інтегрує **WebSockets** через **Django Channels**, щоб забезпечити миттєву синхронізацію даних між усіма підключеними клієнтами. Коли завдання створюється, оновлюється або видаляється через REST API, усі активні користувачі бачать зміни одразу, без необхідності оновлення сторінки.
 
-## Real-time Features
-- ✅ **Instant Task Updates:** Live synchronization of Create/Update/Delete actions across clients.
-- ✅ **Presence Tracking:** Real-time "Users Online" list for administrators.
-- ✅ **Live Dashboard:** Dedicated English-language monitoring page for system activity.
-- ✅ **Admin Integration:** Automated tracking of user connections/disconnections in the Django Admin panel.
-- ✅ **Concurrency:** Powered by Redis as a message broker for high-speed data delivery.
+## Функції в режимі реального часу
+- ✅ **Миттєві оновлення завдань:** синхронізація дій «Створити/Оновити/Видалити» між клієнтами в режимі реального часу.
+- ✅ **Відстеження присутності:** список «Користувачі в мережі» для адміністраторів у режимі реального часу.
+- ✅ **Інформаційна панель у режимі реального часу:** спеціальна англомовна сторінка для моніторингу активності системи.
+- ✅ **Інтеграція з адміністративною панеллю:** Автоматичне відстеження підключень/відключень користувачів у панелі адміністратора Django.
+- ✅ **Паралельність:** Використання Redis як посередника повідомлень для високошвидкісної передачі даних.
 
-## Tech Stack
+## Технології
 - **Backend:** Python 3.12+, Django 6.0+
 - **Real-time:** Django Channels 4.2+, Daphne (ASGI)
 - **Database:** SQLite (Relational), Redis 7.0 (Message Broker via Docker)
@@ -25,22 +27,14 @@ This project is an evolution of a standard To-Do List API. It integrates **WebSo
 
 ---
 
-## Installation & Setup
+## Встановлення та запуск
 
-### Prerequisites
-- Python 3.12 or higher
-- Docker Desktop (for running Redis)
-
-### Step-by-Step Guide
-
-1. **Clone the repository:**
+1. **Клонування репозиторію**
    ```bash
    git clone [https://github.com/nadiina/realtime-todo-api.git](https://github.com/nadiina/realtime-todo-api.git)
    cd realtime-todo-api/django
    ```
-Create and activate a virtual environment:
-   
-
+Створення віртуального середовища:
  ```Bash
 python -m venv venv
  ```
