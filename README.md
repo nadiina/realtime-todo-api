@@ -1,7 +1,9 @@
 # Real-time To-Do List API (Lab 02)
 
 **Студентка:** Надія Щербина 
+
 **Група:** КВ-51мн  
+
 **Лабораторна робота: №2:** Організація спільної роботи користувачів Web-додатка  
 ## Посилання на звіт 
 [https://docs.google.com/document/d/16yPPVKSbs7w5lMctBZtDBXpKvrG-EGOqfcSWl_vC1DU/edit?usp=sharing
